@@ -1,0 +1,27 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn import linear_model
+
+# Load the CSV file into a DataFrame
+df = pd.read_csv('Fish.csv')
+
+# Convert the 'Species' column into dummy/one-hot encoded variables
+newDf = pd.get_dummies(data=df, columns=['Species'])
+
+# Plot the relationship between Height and Weight
+plt.xlabel('Independent Variables')
+plt.ylabel('Fish Weight')
+plt.scatter(newDf['Height'], newDf['Weight'], color='red', marker='+')
+
+# Create a linear regression model
+reg = linear_model.LinearRegression()
+
+# Train the model using Height as the independent variable and Weight as the dependent variable
+reg.fit(newDf[['Height']], newDf['Weight'])
+
+# Plot the regression line
+plt.plot(newDf['Height'], reg.predict(newDf[['Height']]), color='blue')
+
+# Show the plot
+plt.show()
