@@ -1,0 +1,26 @@
+PCA 
+
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from IPython.display import display
+
+# Static data
+data = np.array([[1, 2], [3, 4], [5, 6], [7, 8], [5, 6], [1, 4]])
+
+# Create DataFrame
+df = pd.DataFrame(data, columns=['Feature1', 'Feature2'])
+
+# Standardize data
+X = StandardScaler().fit_transform(df.values)  # Normalizing the features
+
+# Apply PCA
+pca = PCA(n_components=2)
+principalComponents = pca.fit_transform(X)
+
+# Create a DataFrame with principal components
+principalDf = pd.DataFrame(data=principalComponents, columns=['Principal Component 1', 'Principal Component 2'])
+
+# Display output
+display(principalDf)

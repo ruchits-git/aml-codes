@@ -1,0 +1,24 @@
+SOM(UNSUPERVISED)
+
+import numpy as np
+from minisom import MiniSom
+from IPython.display import display
+
+# Static data
+data = np.array([[1, 2], [3, 4], [5, 6], [7, 8], [2, 6], [2, 5], [4, 9]])
+
+# SOM parameters
+som_shape = (5, 5)
+input_len = data.shape[1]
+sigma = 0.3
+learning_rate = 0.5
+
+# Create and train SOM
+som = MiniSom(som_shape[0], som_shape[1], input_len, sigma=sigma, learning_rate=learning_rate)
+som.train_batch(data, 100)
+
+# Quantize the input data
+quantized = [som.quantization(d) for d in data]  # `d` is already in 2D form (rows), no need to reshape
+
+# Display quantized output
+display(quantized)

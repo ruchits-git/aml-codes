@@ -1,0 +1,42 @@
+LOGISTIC REG
+
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+
+# Sample static data (replace with your actual data)
+X = np.array([[1, 2], [2, 3], [3, 1], [4, 2], [5, 3], [0, 1]])  # Features
+y = np.array([0, 1, 0, 1, 0, 1])  # Target variable (binary: 0 or 1)
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train the Logistic Regression model
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+# Generate data points for the sigmoid curve
+x_values = np.linspace(-10, 10, 100)  # Range of values
+
+# Calculate sigmoid values using model parameters
+# We'll assume we use the first feature's coefficient and intercept for simplicity
+sigmoid_values = 1 / (1 + np.exp(-(model.coef_[0][0] * x_values + model.intercept_[0])))
+
+# Plot the sigmoid curve
+plt.plot(x_values, sigmoid_values, label='Sigmoid Curve')
+
+# Plot the data points (only for visualization of binary data points)
+plt.scatter(X[:, 0], y, color='red', label='Data Points')
+
+# Label the axes and title
+plt.xlabel("X-axis")
+plt.ylabel("Probability (Sigmoid)")
+plt.title('Sigmoid Curve for Logistic Regression')
+
+# Display legend and grid
+plt.legend()
+plt.grid(True)
+
+# Show the plot
+plt.show()
